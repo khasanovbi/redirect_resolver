@@ -81,7 +81,7 @@ class Resolver:
         seen_urls = {url}
         history = [url]
         with requests.Session() as session:
-            for i in range(self._max_redirects):
+            for i in range(self._max_redirects + 1):
                 logger.debug(
                     "request, url='%s', method='%s', redirect=%d", url, self._method, i
                 )

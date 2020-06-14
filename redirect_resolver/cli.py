@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 
 def positive_validator(ctx, param, value):
     if value is None or value > 0:
-        return
-    raise click.BadParameter(f"positive integer required, got {value}")
+        return value
+    raise click.BadParameter(f"positive required, got {value}")
 
 
 @click.command()
