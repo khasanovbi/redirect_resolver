@@ -30,15 +30,24 @@ def positive_validator(ctx, param, value):
 @click.option(
     "--max-body", type=int, callback=positive_validator, help="Max body size."
 )
+@click.option(
+    "--timeout", type=float, callback=positive_validator, help="Request timeout."
+)
 @click.option("-v", "--verbose", is_flag=True, default=False, help="Verbose mode.")
-def resolve(url, method, max_redirects, max_body, verbose):
+def resolve(url, method, max_redirects, max_body, timeout, verbose):
     if verbose:
         logging.basicConfig(level=logging.DEBUG)
+
     params = {}
     if max_redirects:
         params["max_redirects"] = max_redirects
     if method:
         params["method"] = method
+    if max_body:
+        params["max_body"] = max_body
+    if timeout:
+        params["timeout"] = timeout
+
     logger.debug("resolve url: '%s', forced_params='%s'", url, params)
     resolver = Resolver(**params)
     print(resolver.resolve(url))
